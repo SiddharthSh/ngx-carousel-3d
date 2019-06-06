@@ -1,4 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
+import { CaraoselOptions, CaraoselSource } from './modules/ngx-carousel-3d/ngx-carousel-3d.interface';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +10,7 @@ export class AppComponent {
   title = 'app';
   @ViewChild('carousel') carousel: any;
 
-  slides: Array<Object> = [
+  slides: Array<CaraoselSource> = [
     {'src': './assets/img/dog_1.jpg'},
     {'src': './assets/img/dog_2.jpeg'},
     {'src': './assets/img/dog_3.jpg'},
@@ -19,7 +20,7 @@ export class AppComponent {
     {'src': './assets/img/dog_7.jpg'}
   ];
 
-  options: Object = {
+  options: CaraoselOptions = {
     clicking: true,
     sourceProp: 'src',
     visible: 7,

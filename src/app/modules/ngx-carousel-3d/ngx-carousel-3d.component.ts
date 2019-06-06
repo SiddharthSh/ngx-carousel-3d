@@ -1,16 +1,10 @@
-import { Component, OnInit, Input, OnDestroy, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, SimpleChanges, OnChanges } from '@angular/core';
 import { NgxCarousel3dService } from './ngx-carousel-3d.service';
 import * as jqueryProxy from 'jquery';
 const jquery = (<any>jqueryProxy).default || jqueryProxy;
 
-
-
-
-
-import { Observable } from 'rxjs/Observable';
-import { Subscription } from 'rxjs/Subscription';
-import 'rxjs/add/observable/timer';
-import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
+import { timer } from 'rxjs/internal/observable/timer';
+import { CaraoselOptions, CaraoselSource } from './ngx-carousel-3d.interface';
 
 @Component({
   selector: 'ngx-carousel-3d',
@@ -19,8 +13,8 @@ import { OnChanges } from '@angular/core/src/metadata/lifecycle_hooks';
   providers: []
 })
 export class NgxCarousel3dComponent implements OnInit, OnDestroy, OnChanges {
-    @Input() options: Object;
-    @Input() slides: Array<Object>;
+    @Input() options: CaraoselOptions;
+    @Input() slides: Array<CaraoselSource>;
     @Input() onBeforeChange: Function;
     @Input() onLastSlide: Function;
     @Input() onSlideChange: Function;
@@ -377,7 +371,7 @@ export class NgxCarousel3dComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   private subscribe() {
-    this.$timer = Observable.timer(this.carousel3d.autoRotationSpeed, this.carousel3d.autoRotationSpeed).subscribe(() => {
+    this.$timer = timer(this.carousel3d.autoRotationSpeed, this.carousel3d.autoRotationSpeed).subscribe(() => {
         if (!this.carousel3d.autoRotationLocked) {
             if (this.options['dir'] === 'ltr') {
                 this.goNext();
